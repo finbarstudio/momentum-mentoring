@@ -1,119 +1,80 @@
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import {
-  settingsQuery,
-  teamQuery,
-  servicesQuery,
-  storiesQuery,
-} from "@/sanity/lib/queries";
+import Nav from "@/components/Nav";
+import HeroMAnim from "@/components/HeroMAnim";
+import Team from "@/components/Team";
+import SmoothScroll from "@/components/SmoothScroll";
 
-export const revalidate = 60;
+const SERVICES = [
+  { title: "Group Activities", desc: "Community engagement and active collaboration to bring out the best qualities in every participant.", img: "qBMjbvtQSrmTZQjLwalb6fOiqSo.png" },
+  { title: "Goal Setting Based Approach", desc: "We consult with clients and families to help each young person fulfil their complete potential.", img: "bJNkd0te1agtsu6g0CadBptjs.png" },
+  { title: "One-on-One Mentoring", desc: "Tailored sessions aligned with NDIS categories 01, 04, 09 and Therapy Assist, drawing on Self Care, Access Community, and Therapy Assist services.", img: "bLeWVrJ7ZzVc7GPSnUwkbJrWpHQ.png" },
+];
 
-export default async function Home() {
-  let settings: any = null,
-    team: any[] = [],
-    services: any[] = [],
-    stories: any[] = [];
-  try {
-    [settings, team, services, stories] = await Promise.all([
-      client.fetch(settingsQuery),
-      client.fetch(teamQuery),
-      client.fetch(servicesQuery),
-      client.fetch(storiesQuery),
-    ]);
-  } catch (e) {
-    console.error("Sanity fetch failed (is the project seeded?):", e);
-  }
+const STORIES = [
+  { title: "Riding a Bike", client: "Abhay", photo: "289vep1HQVyCdDE8xmATQjAmCZw.png", story: "Abhay achieved bike riding proficiency in approximately one month. He progressed from needing significant support to riding with minimal supervision, and can now ride independently from home to the park and back." },
+  { title: "Obtaining L Plates", client: "Jackson", photo: "VtoOJ2BEovuwlX9CsKHhKNLUt0.png", story: "After celebrating his 16th birthday, Jackson was very keen to sit his learners test at Service SA. After undertaking numerous practice modules, Jackson felt he was ready to have a go at the real thing. We were super proud that he aced the test first go and received his L's straight away. We are now working alongside Jackson to help him build road safety awareness and become a more proficient driver behind the wheel!" },
+];
 
-  const s = settings || {};
+const A = "/assets/";
 
+export default function Home() {
   return (
     <>
-      {/* NAV */}
-      <header className="nav">
-        <div className="container nav-inner">
-          <a href="#top" className="nav-logo">
-            {s.logo ? (
-              <img src={urlFor(s.logo).height(80).url()} alt="Momentum Mentoring" />
-            ) : (
-              "Momentum"
-            )}
-          </a>
-          <nav className="nav-links">
-            <a href="#team">Team</a>
-            <a href="#services">Services</a>
-            <a href="#stories">Stories</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <SmoothScroll />
+      <Nav />
+      <HeroMAnim />
 
       {/* HERO */}
-      <section className="hero" id="top">
-        <div className="container">
-          <span className="badge">{s.badgeText || "Registered Provider"}</span>
-          <h1>
-            {s.heroHeadline ||
-              "Building identity through choice, voice, and independence."}
-          </h1>
-          <div className="hero-contact">
-            {s.email && <a href={`mailto:${s.email}`}>{s.email}</a>}
-            {s.location && <span>{s.location}</span>}
+      <header className="hero2" id="top">
+        <div className="hero2__inner">
+          <div className="hero2__brand">
+            <img className="hero2__mark" src={`${A}svg/LM2_1.svg`} alt="Momentum Mentoring" />
+            <img className="hero2__ndis" src={`${A}B0jo87FLvVYTrBJcqCC6zOFBnpY.png`} alt="NDIS Registered Provider" />
           </div>
-          {s.heroImage && (
-            <div className="hero-img">
-              <img src={urlFor(s.heroImage).width(2000).url()} alt="" />
-            </div>
-          )}
+          <h1 className="hero2__headline">
+            Building identity through choice, voice, and independence.
+          </h1>
+          <a className="draw-link hero2__cta" href="#contact">
+            Contact us
+            <span className="hero2__cta-arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
-      </section>
+
+        <div className="hero2__logoart" aria-hidden="true">
+          {/* outline M (dark blue) — will animate forward/down on scroll */}
+          <img className="hero2__outlineM" src={`${A}svg/lm-line.svg`} alt="" />
+          {/* video clipped into the M, with a blue overlay — animates back/up */}
+          <div className="hero2__videomask">
+            <video
+              className="hero2__video"
+              src={`${A}hero-video.min.mp4`}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <span className="hero2__videotint" />
+          </div>
+        </div>
+
+        {/* darken layer for the "fall away" recede */}
+        <div className="hero2__veil" aria-hidden="true" />
+      </header>
 
       {/* TEAM */}
-      <section id="team">
-        <div className="container">
-          <p className="eyebrow">Our Team</p>
-          <h2 className="section-tagline">
-            {s.teamTagline ||
-              "Let's turn challenges into wins, one goal at a time."}
-          </h2>
-          <div className="team-grid">
-            {team?.map((m: any) => (
-              <article className="team-card" key={m._id}>
-                <div className="team-photo">
-                  {m.photo && (
-                    <img
-                      src={urlFor(m.photo).width(500).height(500).fit("crop").url()}
-                      alt={m.name}
-                    />
-                  )}
-                </div>
-                <div className="team-body">
-                  <h3>{m.name}</h3>
-                  <p className="team-role">{m.role}</p>
-                  {m.quote && <p className="team-quote">“{m.quote}”</p>}
-                  {m.bio && <p className="team-bio">{m.bio}</p>}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Team />
 
       {/* SERVICES */}
-      <section id="services">
-        <div className="container">
-          <p className="eyebrow">What We Do</p>
-          <h2 className="section-tagline">Our Services</h2>
-          <div className="services-grid">
-            {services?.map((sv: any) => (
-              <article className="service-card" key={sv._id}>
-                <div className="service-illus">
-                  {sv.illustration && (
-                    <img src={urlFor(sv.illustration).width(300).url()} alt="" />
-                  )}
+      <section className="sec sec--services" id="services">
+        <div className="wrap">
+          <h2 className="sec__head">Our Services</h2>
+          <div className="services">
+            {SERVICES.map((s) => (
+              <article className="service" key={s.title}>
+                <div className="service__illus">
+                  <img src={`${A}${s.img}`} alt="" />
                 </div>
-                <h3>{sv.title}</h3>
-                <p>{sv.description}</p>
+                <h3 className="service__title">{s.title}</h3>
+                <p className="service__desc">{s.desc}</p>
               </article>
             ))}
           </div>
@@ -121,61 +82,50 @@ export default async function Home() {
       </section>
 
       {/* STORIES */}
-      <section id="stories">
-        <div className="container">
-          <p className="eyebrow">Success Stories</p>
-          <h2 className="section-tagline">Real progress, real wins.</h2>
-          {stories?.map((st: any) => (
-            <article className="story" key={st._id}>
-              <div className="story-photo">
-                {st.photo && (
-                  <img src={urlFor(st.photo).width(560).url()} alt={st.title} />
-                )}
-              </div>
-              <div>
-                <h3>{st.title}</h3>
-                {st.clientName && (
-                  <p className="story-client">{st.clientName}</p>
-                )}
-                <p>{st.story}</p>
-              </div>
-            </article>
-          ))}
+      <section className="sec sec--stories" id="stories">
+        <div className="wrap">
+          <h2 className="sec__head">Making a Difference</h2>
+          <div className="stories">
+            {STORIES.map((st) => (
+              <article className="story2" key={st.title}>
+                <div className="story2__photo">
+                  <img src={`${A}${st.photo}`} alt={st.title} />
+                </div>
+                <div className="story2__body">
+                  <h3 className="story2__title">{st.title}</h3>
+                  <p className="story2__client">{st.client}</p>
+                  <p className="story2__text">{st.story}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact">
-        <div className="container contact-grid">
-          <h2>Let’s start the journey together.</h2>
-          <div>
-            {s.email && (
-              <p className="contact-detail">
-                <a href={`mailto:${s.email}`}>{s.email}</a>
-              </p>
-            )}
-            {s.location && <p className="contact-detail">{s.location}</p>}
+      <section className="sec sec--contact" id="contact">
+        <div className="wrap contact2">
+          <h2 className="contact2__head">Let's start the journey together.</h2>
+          <div className="contact2__details">
+            <a className="sq-link" href="mailto:info@momentummentoring.co">info@momentummentoring.co</a>
+            <p>Plympton, SA, 5038</p>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer>
-        <div className="container footer-inner">
-          <p className="footer-text">
-            {s.footerText ||
-              "Momentum Mentoring is committed to providing NDIS disability services for younger males in Adelaide, South Australia, accessible to people with disabilities."}
+      <footer className="footer2">
+        <div className="wrap footer2__inner">
+          <img className="footer2__mark" src={`${A}svg/logo-white.svg`} alt="Momentum Mentoring" />
+          <p className="footer2__text">
+            Momentum Mentoring is committed to providing NDIS disability services for younger
+            males in Adelaide, South Australia, and is accessible to people with disabilities.
           </p>
-          {s.ndisLogo && (
-            <div className="footer-ndis">
-              <img src={urlFor(s.ndisLogo).height(96).url()} alt="NDIS Registered Provider" />
-            </div>
-          )}
+          <img className="footer2__ndis" src={`${A}B0jo87FLvVYTrBJcqCC6zOFBnpY.png`} alt="NDIS Registered Provider" />
         </div>
-        <div className="container">
-          <p className="footer-credit">
-            Website by <a href="https://finbar.studio">Finbar.Studio</a>
-          </p>
+        <div className="wrap footer2__credit">
+          <span>© Momentum Mentoring</span>
+          <a href="https://finbar.studio">Website by Finbar.Studio</a>
         </div>
       </footer>
     </>

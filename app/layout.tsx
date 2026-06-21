@@ -27,10 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${barlow.variable} ${barlowSemi.variable}`}>
-        {children}
-      </body>
+    <html lang="en" className={`${barlow.variable} ${barlowSemi.variable}`}>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/ilm4thc.css" />
+      </head>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

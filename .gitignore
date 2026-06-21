@@ -7,3 +7,5 @@ out
 .vercel
 *.log
 .env*.local
+.shots
+public/assets/_orig_team
