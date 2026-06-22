@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import HeroMAnim from "@/components/HeroMAnim";
 import Team from "@/components/Team";
 import SmoothScroll from "@/components/SmoothScroll";
+import ScrollFX from "@/components/ScrollFX";
 
 const SERVICES = [
   { title: "Group Activities", desc: "Community engagement and active collaboration to bring out the best qualities in every participant.", img: "qBMjbvtQSrmTZQjLwalb6fOiqSo.png" },
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <>
       <SmoothScroll />
+      <ScrollFX />
       <Nav />
       <HeroMAnim />
 
@@ -104,28 +106,103 @@ export default function Home() {
 
       {/* CONTACT */}
       <section className="sec sec--contact" id="contact">
-        <div className="wrap contact2">
-          <h2 className="contact2__head">Let's start the journey together.</h2>
-          <div className="contact2__details">
-            <a className="sq-link" href="mailto:info@momentummentoring.co">info@momentummentoring.co</a>
-            <p>Plympton, SA, 5038</p>
-          </div>
+        <div className="wrap">
+          <h2 className="sec__head">Contact Us</h2>
+          <p className="contact__intro">
+            For inquiries, appointments, or to learn more about Momentum
+            Mentoring and NDIS services, fill in the form below, or contact us
+            directly!
+          </p>
+          <p className="contact__direct">
+            <a className="draw-link" href="mailto:info@momentummentoring.co">
+              info@momentummentoring.co
+            </a>
+            <br />
+            Plympton, SA, 5038.
+          </p>
+
+          <form className="contact__form">
+            <label className="field">
+              <span>Your Name</span>
+              <input type="text" name="name" autoComplete="name" />
+            </label>
+            <label className="field">
+              <span>Email Address</span>
+              <input type="email" name="email" autoComplete="email" />
+            </label>
+            <label className="field">
+              <span>Phone Number</span>
+              <input type="tel" name="phone" autoComplete="tel" />
+            </label>
+            <label className="field">
+              <span>Preferred Contact Method</span>
+              <select name="method" defaultValue="">
+                <option value="" disabled>
+                  Select…
+                </option>
+                <option>Email</option>
+                <option>Phone</option>
+                <option>Either</option>
+              </select>
+            </label>
+            <label className="field field--full">
+              <span>Short Message</span>
+              <input type="text" name="message" placeholder="Hello!" />
+            </label>
+            <button className="contact__submit" type="submit">
+              Submit
+            </button>
+          </form>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer className="footer2">
-        <div className="wrap footer2__inner">
-          <img className="footer2__mark" src={`${A}svg/logo-white.svg`} alt="Momentum Mentoring" />
-          <p className="footer2__text">
-            Momentum Mentoring is committed to providing NDIS disability services for younger
-            males in Adelaide, South Australia, and is accessible to people with disabilities.
-          </p>
-          <img className="footer2__ndis" src={`${A}B0jo87FLvVYTrBJcqCC6zOFBnpY.png`} alt="NDIS Registered Provider" />
-        </div>
-        <div className="wrap footer2__credit">
-          <span>© Momentum Mentoring</span>
-          <a href="https://finbar.studio">Website by Finbar.Studio</a>
+        <div className="wrap footer2__grid">
+          <div className="footer2__left">
+            <div className="footer2__logos">
+              <img
+                className="footer2__mlogo"
+                src={`${A}tKW6w9ldUBZKXmoOfzOe2ER9Yw.svg`}
+                alt="Momentum Mentoring"
+              />
+              <img
+                className="footer2__ndis"
+                src={`${A}LCuuNV6sIk1wn0QQ80Wwvy7qKHc.svg`}
+                alt="NDIS"
+              />
+            </div>
+            <p className="footer2__info">
+              info@momentummentoring.co
+              <br />
+              Plympton, SA, 5038.
+            </p>
+          </div>
+
+          <div className="footer2__vr" aria-hidden="true" />
+
+          <div className="footer2__right">
+            <p className="footer2__statement">
+              At Momentum Mentoring, we are committed to providing disability
+              services through National Disability Insurance Scheme (NDIS) that
+              includes mentoring for younger males. Based in Adelaide, South
+              Australia, we strive to ensure our website is accessible to people
+              with disabilities. Please note that you are responsible for
+              ensuring that your site's statement meets the requirements of the
+              local laws in your area or region.
+            </p>
+            <div className="footer2__credit-row">
+              <span className="footer2__heart" aria-hidden="true">
+                ♡
+              </span>
+              <p className="footer2__credit">
+                WEB DESIGN AND DEVELOPMENT{" "}
+                <a href="https://www.finbar.studio" target="_blank" rel="noopener">
+                  FINBAR.STUDIO
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </>
