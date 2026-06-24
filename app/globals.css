@@ -140,7 +140,7 @@ a:hover {
   position: sticky;
   top: 1rem;
   z-index: 100;
-  margin: 1rem 2rem 0; /* padded top + L/R, aligns with content gutter */
+  margin: 1rem calc(clamp(2rem, 4.5vw, 4.5rem) - 1.5rem) 0; /* links align to content gutter */
   padding: 1.1rem 1.5rem;
   display: flex;
   align-items: center;
@@ -562,8 +562,9 @@ a:hover {
   color: var(--navy);
 }
 .hero2__cta-arrow {
-  font-size: 1.15em;
-  line-height: 0;
+  width: 0.8em;
+  height: 0.8em;
+  display: block;
 }
 
 /* ---- Hero logo art: outline M + video-filled M, stacked ---- */
@@ -1189,4 +1190,27 @@ a:hover {
     padding-left: 1.15rem;
     padding-right: 1.15rem;
   }
+}
+
+.footer2__info a {
+  color: inherit;
+  background: none;
+}
+.footer2__info a:hover {
+  color: var(--white);
+}
+
+/* contact form states */
+.contact__thanks {
+  font-family: var(--font-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  font-size: 1.1rem;
+}
+.contact__err {
+  grid-column: 1 / -1;
+  color: var(--highlight);
+  font-size: 0.9rem;
 }
