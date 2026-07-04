@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollFX() {
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       // ---- staggered reveals on scroll ----
       const groups: [string, string][] = [

@@ -25,7 +25,7 @@ const DEFAULT_MAPS = "https://maps.google.com/?q=Plympton+SA+5038";
 const DEFAULT_INTRO =
   "For inquiries, appointments, or to learn more about Momentum Mentoring and NDIS services, fill in the form below, or contact us directly!";
 const DEFAULT_FOOTER =
-  "At Momentum Mentoring, we are committed to providing disability services through National Disability Insurance Scheme (NDIS) that includes mentoring for younger males. Based in Adelaide, South Australia, we strive to ensure our website is accessible to people with disabilities. Please note that you are responsible for ensuring that your site's statement meets the requirements of the local laws in your area or region.";
+  "At Momentum Mentoring, we are committed to providing disability services through the National Disability Insurance Scheme (NDIS), including mentoring for younger males. Based in Adelaide, South Australia, we strive to ensure our website is accessible to people with disabilities.";
 
 export default async function Home() {
   let settings: any = {};
@@ -162,8 +162,8 @@ export default async function Home() {
         <div className="wrap footer2__grid">
           <div className="footer2__left">
             <div className="footer2__logos">
-              <img className="footer2__mlogo" src={`${A}svg/tKW6w9ldUBZKXmoOfzOe2ER9Yw.svg`} alt="Momentum Mentoring" />
-              <img className="footer2__ndis" src={`${A}svg/LCuuNV6sIk1wn0QQ80Wwvy7qKHc.svg`} alt="NDIS" />
+              <img className="footer2__mlogo" src={`${A}tKW6w9ldUBZKXmoOfzOe2ER9Yw.svg`} alt="Momentum Mentoring" />
+              <img className="footer2__ndis" src={`${A}LCuuNV6sIk1wn0QQ80Wwvy7qKHc.svg`} alt="NDIS" />
             </div>
             <p className="footer2__info">
               <a href={`mailto:${email}`}>{email}</a>

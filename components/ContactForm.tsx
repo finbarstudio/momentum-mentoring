@@ -69,7 +69,7 @@ export default function ContactForm() {
       </label>
       <label className="field field--full">
         <span>Short Message</span>
-        <input type="text" name="message" placeholder="Hello!" />
+        <textarea name="message" rows={4} placeholder="Hello!" />
       </label>
 
       {/* honeypot for spam bots */}

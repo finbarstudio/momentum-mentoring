@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroMAnim() {
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       // Pin the hero and let the next section scroll OVER it (pinSpacing:false).
       // As you scroll: the M's split apart, and the whole hero shrinks + darkens
